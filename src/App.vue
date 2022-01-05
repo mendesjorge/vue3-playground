@@ -1,21 +1,23 @@
 <template>
 	<div class="container">
-		<img alt="Vue logo" src="./assets/logo.png" />
-		<Slider v-model="sliderValue" label="Slider" min="0" max="10" prefix symbol="€"/>
+		<div class="content-header">
+			<Navbar/>
+		</div>
+		<div class="content-body">
+			<router-view></router-view>
+		</div>
 	</div>
 </template>
 
 <script>
-import Slider from './components/Slider.vue'
-
+import Navbar from './components/Navbar.vue'
 export default {
 	name: 'App',
 	components: {
-		Slider
+		Navbar
 	},
 	data() {
 		return {
-			sliderValue: null
 		}
 	},
 }
