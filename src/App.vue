@@ -22,3 +22,25 @@ export default {
 	},
 }
 </script>
+<style scoped>
+.container{
+	display: flex;
+	flex-direction: column;
+	flex: 1 0 auto;
+	
+	height: 100vh;
+}
+
+/* .content-header{
+
+} */
+.content-body{
+	display: flex;
+	flex-grow: 2;
+	width: 100vw;
+	height: 100%;
+	overflow-x: auto;
+	
+	padding-top: 20px;
+}
+</style>

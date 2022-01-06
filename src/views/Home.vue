@@ -1,6 +1,6 @@
 <template>
 	<div class="home-container">
-		Home is Here
+		<t1>Welcome to challenges of Mansorge!</t1>
 	</div>
 </template>
 
@@ -10,6 +10,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.home-container{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
 </style>
