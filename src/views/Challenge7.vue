@@ -10,11 +10,11 @@
 		</div>
 		<div class="input-fields">
 			<div class="bill-amount">
-				<input type="text" v-model="billAmount"/>
+				<input type="text" :value="billAmount" @input="(ev) => updateNumberValue(billAmount, ev)"/>
 				<div class="label">Bill Amount</div>
 			</div>
 			<div class="number-of-people">
-				<input type="text" v-model="nOfPeople"/>
+				<input type="text" :value="nOfPeople" @input="(ev) => updateNumberValue(nOfPeople, ev)"/>
 				<div class="label">Number of People</div>
 			</div>
 		</div>
@@ -41,12 +41,18 @@ export default {
 	setup(/* props, { attrs, slots, emit, expose } */) {
 		const billAmount = ref(0)
 		const nOfPeople = ref(0)
+		const tipPercent = ref(0)
 
 		const tipAmount = ref(0)
-		const tipPercent = ref(0)
+		const totalPerPerson = ref(0)
 		
 		const calculateHandler = () => {
-			tipAmount.value = nOfPeople/billAmount*tipPercent
+			tipAmount.value = billAmount.value/nOfPeople.value * tipPercent.value
+			totalPerPerson.value = (nOfPeople.value * tipAmount.value + billAmount.value) / nOfPeople.value
+		}
+		
+		const updateNumberValue = (ref, newVal) => {
+			console.log(ref, newVal)
 		}
 
 		return {
@@ -54,7 +60,9 @@ export default {
 			tipPercent,
 			billAmount,
 			nOfPeople,
-			calculateHandler
+			totalPerPerson,
+			calculateHandler,
+			updateNumberValue
 		}
 	}
 }
@@ -167,13 +175,13 @@ input[type="text"] {
 }
 
 .bill-amount input[type=text] {
-  background: url('./images/dollar.svg') left 15px no-repeat;
+  background: url('/challenge7/dollar.svg') left 15px no-repeat;
   padding-left: 40px;
   width: 100%;
 }
 
 .number-of-people input[type=text] {
-  background: url('./images/people.svg') left 20px no-repeat;
+  background: url('/challenge7/people.svg') left 20px no-repeat;
   padding-left: 40px;
   text-align: right;
 }

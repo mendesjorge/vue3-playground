@@ -3,12 +3,14 @@ import * as VueRouter from 'vue-router'
 // These can be imported from other files
 import Home from '../views/Home.vue'
 import Challenge6 from '../views/Challenge6.vue'
+import Challenge7 from '../views/Challenge7.vue'
 // 2. Define some routes
 // Each route should map to a component.
 // We'll talk about nested routes later.
 const routes = [
 	{ path: '/', component: Home },
-	{ path: '/challenge-6', component: Challenge6 }
+	{ path: '/challenge-6', component: Challenge6 },
+	{ path: '/challenge-7', component: Challenge7 }
 ]
 
 // 3. Create the router instance and pass the `routes` option
