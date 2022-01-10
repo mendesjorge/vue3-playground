@@ -1,32 +1,32 @@
 <template>
 	<div class="tip-calculator wrapper">
 		<div class="tip-amount">
-			<sup>{{tipAmount}}</sup>
 			<label for="tip-amount">Tip Amount</label>
+			<sup>{{tipAmount.toFixed(2)}}</sup>
 		</div>
 		<div class="total-per-person">
-			<sup>{{totalPerPerson}}</sup>
 			<label for="tip-amount">Total Per Person</label>
+			<sup>{{totalPerPerson.toFixed(2)}}</sup>
 		</div>
 		<div class="input-fields">
 			<div class="bill-amount">
-				<input type="text" :value="billAmount" @input="(ev) => updateNumberValue(billAmount, ev)"/>
+				<input type="text" :value="billAmount" @input="updateBillAmountValue"/>
 				<div class="label">Bill Amount</div>
 			</div>
 			<div class="number-of-people">
-				<input type="text" :value="nOfPeople" @input="(ev) => updateNumberValue(nOfPeople, ev)"/>
+				<input type="text" :value="nOfPeople" @input="updateNOfPeopleValue"/>
 				<div class="label">Number of People</div>
 			</div>
 		</div>
 		<div class="tip-percentages">
-			<input type="radio" text="5%" id="5" name="tipPercent">
-			<div class="label" for="5">5</div>
-			<input type="radio" text="10%" id="10" name="tipPercent">
-			<div class="label" for="10">10</div>
-			<input type="radio" text="15%" id="15" name="tipPercent">
-			<div class="label" for="15">15</div>
-			<input type="radio" text="20%" id="20" name="tipPercent">
-			<div class="label" for="20">20</div>
+			<input type="radio" text="5%" id="5" name="tipPercent" value="5" v-model='tipPercent' checked>
+			<label class="label" for="5">5</label>
+			<input type="radio" text="10%" id="10" name="tipPercent" value="10" v-model='tipPercent'>
+			<label class="label" for="10">10</label>
+			<input type="radio" text="15%" id="15" name="tipPercent" value="15" v-model='tipPercent'>
+			<label class="label" for="15">15</label>
+			<input type="radio" text="20%" id="20" name="tipPercent" value="20" v-model='tipPercent'>
+			<label class="label" for="20">20</label>
 		</div>
 		<div class="button-wrapper">
 			<button @click="calculateHandler">Calculate</button>
@@ -39,20 +39,38 @@ import {ref} from 'vue'
 
 export default {
 	setup(/* props, { attrs, slots, emit, expose } */) {
-		const billAmount = ref(0)
-		const nOfPeople = ref(0)
-		const tipPercent = ref(0)
+		const billAmount = ref()
+		const nOfPeople = ref()
+		const tipPercent = ref(5)
 
 		const tipAmount = ref(0)
 		const totalPerPerson = ref(0)
 		
 		const calculateHandler = () => {
-			tipAmount.value = billAmount.value/nOfPeople.value * tipPercent.value
-			totalPerPerson.value = (nOfPeople.value * tipAmount.value + billAmount.value) / nOfPeople.value
+			const billNumber = Number(billAmount.value.replace(',','.'))
+			tipAmount.value = billNumber/nOfPeople.value * tipPercent.value
+			totalPerPerson.value = (nOfPeople.value * tipAmount.value + billNumber) / nOfPeople.value
 		}
 		
-		const updateNumberValue = (ref, newVal) => {
-			console.log(ref, newVal)
+		const updateNOfPeopleValue = (ev) => {
+			console.log(ref, ev)
+			if(!/\d/.test(ev.data)) {
+				console.log('bad')
+				nOfPeople.value = ev.target.value.slice(0,ev.target.value.length - 1)
+				ev.target.value = nOfPeople.value
+			}
+			else nOfPeople.value = ev.target.value
+		}
+    
+		const updateBillAmountValue = (ev) => {
+			console.log(ref, ev)
+			if(!/\d/.test(ev.data) && ![','].includes(ev.data)) {
+				console.log('bad')
+				billAmount.value = ev.target.value.slice(0,ev.target.value.length - 1)
+				ev.target.value = billAmount.value
+			}
+			else billAmount.value = ev.target.value
+
 		}
 
 		return {
@@ -62,7 +80,8 @@ export default {
 			nOfPeople,
 			totalPerPerson,
 			calculateHandler,
-			updateNumberValue
+			updateNOfPeopleValue,
+			updateBillAmountValue
 		}
 	}
 }
