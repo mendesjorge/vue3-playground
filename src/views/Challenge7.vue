@@ -1,11 +1,11 @@
 <template>
 	<div class="tip-calculator wrapper">
 		<div class="tip-amount">
-			<label for="tip-amount">Tip Amount</label>
+			<div for="tip-amount">Tip Amount</div>
 			<sup>{{tipAmount.toFixed(2)}}</sup>
 		</div>
 		<div class="total-per-person">
-			<label for="tip-amount">Total Per Person</label>
+			<div for="tip-amount">Total Per Person</div>
 			<sup>{{totalPerPerson.toFixed(2)}}</sup>
 		</div>
 		<div class="input-fields">
@@ -20,13 +20,13 @@
 		</div>
 		<div class="tip-percentages">
 			<input type="radio" text="5%" id="5" name="tipPercent" value="5" v-model='tipPercent' checked>
-			<label class="label" for="5">5</label>
+			<label class="label" for="5">5%</label>
 			<input type="radio" text="10%" id="10" name="tipPercent" value="10" v-model='tipPercent'>
-			<label class="label" for="10">10</label>
+			<label class="label" for="10">10%</label>
 			<input type="radio" text="15%" id="15" name="tipPercent" value="15" v-model='tipPercent'>
-			<label class="label" for="15">15</label>
+			<label class="label" for="15">15%</label>
 			<input type="radio" text="20%" id="20" name="tipPercent" value="20" v-model='tipPercent'>
-			<label class="label" for="20">20</label>
+			<label class="label" for="20">20%</label>
 		</div>
 		<div class="button-wrapper">
 			<button @click="calculateHandler">Calculate</button>
@@ -109,6 +109,8 @@ body {
   border-radius: 20px;
   width: 765px;
   padding-top: 55px;
+  align-self: center;
+  margin: 0 auto;
 }
 
 .tip-amount {
@@ -164,6 +166,9 @@ body {
   border-right: 2px solid #DEDEDE;
   padding: 65px 45px 45px 20px;
   width: 70%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
 }
 
 .input-fields .number-of-people {
