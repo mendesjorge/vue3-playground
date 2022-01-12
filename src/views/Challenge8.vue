@@ -1,5 +1,10 @@
 <template>
 <div class="wrapper">
+	<div v-for="(item, index) in wheatherData" :key="index">
+		{{item['main']}}
+		{{item['description']}}
+		{{item['icon']}}
+	</div>
 	<div class="days">
     <!-- day - cloudy -->
     <div class="day">
@@ -233,7 +238,7 @@
     </symbol>
   </svg>
 
-  <!-- <svg id="weather" xmlns="http://www.w3.org/2000/svg">
+  <svg id="weather" xmlns="http://www.w3.org/2000/svg">
     <symbol id="cloudy" width="264" height="166" viewBox="0 0 264 166">
       <g style="mix-blend-mode:multiply">
         <path opacity="0.047619"
@@ -4368,11 +4373,27 @@
         </linearGradient>
       </defs>
     </symbol>
-  </svg> -->
+  </svg>
 </div>
 </template>
 
 <script setup>
+import {ref} from 'vue'
+
+const APIKey = '90aeb0a5b27a754aa777245c75812644'
+const weatherData = ref([])
+async function getWeatherData(cityName){
+	const geoPositionResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?appid=${APIKey}${cityName?`&q=${cityName}`:''}`)
+	const responseObj = geoPositionResponse.json()
+	console.log(responseObj)
+	const lat = await responseObj[0].lat,long = geoPositionResponse.data[0].lon
+	const weatherResponse = await fetch(`http://api.openweathermap.org/data/2.5/onecall?appid=${APIKey}&lat=${lat}&lon=${long}`)
+	weatherData.value = {
+		main: await weatherResponse.weather
+	}
+}
+
+getWeatherData('Lisbon,pt')
 
 </script>
 
