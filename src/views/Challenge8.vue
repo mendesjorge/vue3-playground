@@ -1,223 +1,32 @@
 <template>
 <div class="wrapper">
-	<div v-for="(item, index) in wheatherData" :key="index">
-		{{item['main']}}
-		{{item['description']}}
-		{{item['icon']}}
-	</div>
 	<div class="days">
     <!-- day - cloudy -->
-    <div class="day">
-      <div class="day-of-week">Wed</div>
-      <div class="date">8</div>
+    <div class="day" v-for="day in weatherData" :key="day.datetime">
+      <div class="day-of-week">{{day.week}}</div>
+      <div class="date">{{day.datetime.getDate()}}</div>
 
-      <div class="bar cloudy">
+      <div :class="['bar', day.imagePreview]">
         <div class="weather">
           <svg role="img">
-            <use xlink:href="#cloudy" width="264" height="166" viewBox="0 0 264 166"></use>
+            <use :xlink:href="'#'+day.imagePreview" width="264" height="166" viewBox="0 0 264 166"></use>
           </svg>
         </div>
         <div class="temperature">
-          72<span class="degrees">&deg;</span>
+          {{day.temperature.toFixed(0)}}<span class="degrees">&deg;</span>
         </div>
         <div class="content">
           <div class="precipitation">
             <svg role="img" class="icon">
               <use xlink:href="#precipitation"></use>
             </svg>
-            84%
+            {{day.humidity}}%
           </div>
           <div class="low">
             <svg role="img" class="icon">
               <use xlink:href="#low"></use>
             </svg>
-            28&deg;
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- day - sunny -->
-    <div class="day">
-      <div class="day-of-week">Thur</div>
-      <div class="date">9</div>
-
-      <div class="bar sunny">
-        <div class="weather">
-          <svg role="img" width="208" height="213" viewBox="0 0 208 213">
-            <use xlink:href="#sunny"></use>
-          </svg>
-        </div>
-        <div class="temperature">
-          65<span class="degrees">&deg;</span>
-        </div>
-        <div class="content">
-          <div class="precipitation">
-            <svg role="img" class="icon">
-              <use xlink:href="#precipitation"></use>
-            </svg>
-            84%
-          </div>
-          <div class="low">
-            <svg role="img" class="icon">
-              <use xlink:href="#low"></use>
-            </svg>
-            28&deg;
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- day - stormy -->
-    <div class="day">
-      <div class="day-of-week">Fri</div>
-      <div class="date">10</div>
-
-      <div class="bar stormy">
-        <div class="weather">
-          <svg role="img" width="246" height="187" viewBox="0 0 246 187">
-            <use xlink:href="#stormy"></use>
-          </svg>
-        </div>
-        <div class="temperature">
-          67<span class="degrees">&deg;</span>
-        </div>
-        <div class="content">
-          <div class="precipitation">
-            <svg role="img" class="icon">
-              <use xlink:href="#precipitation"></use>
-            </svg>
-            84%
-          </div>
-          <div class="low">
-            <svg role="img" class="icon">
-              <use xlink:href="#low"></use>
-            </svg>
-            28&deg;
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- day - snowy -->
-    <div class="day">
-      <div class="day-of-week">Sat</div>
-      <div class="date">11</div>
-
-      <div class="bar snowy">
-        <div class="weather">
-          <svg role="img" width="230" height="196" viewBox="0 0 230 196">
-            <use xlink:href="#snowy"></use>
-          </svg>
-        </div>
-        <div class="temperature">
-          32<span class="degrees">&deg;</span>
-        </div>
-        <div class="content">
-          <div class="precipitation">
-            <svg role="img" class="icon">
-              <use xlink:href="#precipitation"></use>
-            </svg>
-            84%
-          </div>
-          <div class="low">
-            <svg role="img" class="icon">
-              <use xlink:href="#low"></use>
-            </svg>
-            28&deg;
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- day - partly cloudy -->
-    <div class="day">
-      <div class="day-of-week">Sun</div>
-      <div class="date">12</div>
-
-      <div class="bar partly-cloudy">
-        <div class="weather">
-          <svg role="img" width="230" height="209" viewBox="0 0 230 209">
-            <use xlink:href="#partly-cloudy"></use>
-          </svg>
-        </div>
-        <div class="temperature">
-          57<span class="degrees">&deg;</span>
-        </div>
-        <div class="content">
-          <div class="precipitation">
-            <svg role="img" class="icon">
-              <use xlink:href="#precipitation"></use>
-            </svg>
-            84%
-          </div>
-          <div class="low">
-            <svg role="img" class="icon">
-              <use xlink:href="#low"></use>
-            </svg>
-            28&deg;
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- day - rainy -->
-    <div class="day">
-      <div class="day-of-week">Mon</div>
-      <div class="date">13</div>
-
-      <div class="bar rainy">
-        <div class="weather">
-          <svg role="img" width="160" height="222" viewBox="0 0 160 222">
-            <use xlink:href="#rainy"></use>
-          </svg>
-        </div>
-        <div class="temperature">
-          63<span class="degrees">&deg;</span>
-        </div>
-        <div class="content">
-          <div class="precipitation">
-            <svg role="img" class="icon">
-              <use xlink:href="#precipitation"></use>
-            </svg>
-            84%
-          </div>
-          <div class="low">
-            <svg role="img" class="icon">
-              <use xlink:href="#low"></use>
-            </svg>
-            28&deg;
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- day - sunny -->
-    <div class="day">
-      <div class="day-of-week">Tue</div>
-      <div class="date">14</div>
-
-      <div class="bar sunny">
-        <div class="weather">
-          <svg role="img" width="208" height="213" viewBox="0 0 208 213">
-            <use xlink:href="#sunny"></use>
-          </svg>
-        </div>
-        <div class="temperature">
-          71<span class="degrees">&deg;</span>
-        </div>
-        <div class="content">
-          <div class="precipitation">
-            <svg role="img" class="icon">
-              <use xlink:href="#precipitation"></use>
-            </svg>
-            84%
-          </div>
-          <div class="low">
-            <svg role="img" class="icon">
-              <use xlink:href="#low"></use>
-            </svg>
-            28&deg;
+            {{day.low}}&deg;
           </div>
         </div>
       </div>
@@ -4382,15 +4191,61 @@ import {ref} from 'vue'
 
 const APIKey = '90aeb0a5b27a754aa777245c75812644'
 const weatherData = ref([])
+const dayWeatherTypes = {
+	'Clear':'sunny',            // 0 - 800 exact (Clear)
+	'Clouds':{
+		801: 'partly-cloudy',     // 1 - 801 and 802 (Clouds/ under 50%)
+		802: 'partly-cloudy',     // 1 - 801 and 802 (Clouds/ under 50%)
+		803: 'cloudy',            // 1 - 803 and 804 (Clouds/ over 50%)
+		804: 'cloudy'             // 1 - 803 and 804 (Clouds/ over 50%)
+	},           
+	'Thunderstorm':'stormy',    // 2 - 200 group (Thunderstorm)
+	'Rain':'rainy',             // 3 - 500 group (Rain)
+	'Drizzle':'precipitation',  // 4 - 300 group (Drizzle)
+	'Snow':'snowy'              // 5 - 600 group (Snow)
+}
 async function getWeatherData(cityName){
-	const geoPositionResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?appid=${APIKey}${cityName?`&q=${cityName}`:''}`)
-	const responseObj = geoPositionResponse.json()
-	console.log(responseObj)
-	const lat = await responseObj[0].lat,long = geoPositionResponse.data[0].lon
-	const weatherResponse = await fetch(`http://api.openweathermap.org/data/2.5/onecall?appid=${APIKey}&lat=${lat}&lon=${long}`)
-	weatherData.value = {
-		main: await weatherResponse.weather
+	const geoPositionResponse = await requestHandler(`http://api.openweathermap.org/geo/1.0/direct?appid=${APIKey}${cityName?`&q=${cityName}`:''}`)
+	const lat = geoPositionResponse[0].lat,long = geoPositionResponse[0].lon
+	const weatherResponse = await requestHandler(`http://api.openweathermap.org/data/2.5/onecall?appid=${APIKey}&lat=${lat}&lon=${long}&units=metric&exclude=current,hourly,minutely`)
+  
+	const structuredData = weatherResponse.daily.slice(0,7).map(day => {
+		//logic to find image for weather type from openweather
+		let preview = dayWeatherTypes[day.weather[0].main]
+		if(typeof preview === 'object'){
+			preview = preview[day.weather[0].id]
+		}
+		// end logic weather type
+
+		const weekNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+		const date = new Date(day.dt*1000)
+		console.log(day.dt)
+		return {
+			datetime: date,
+			week: weekNames[date.getDay()],
+			cloudsLevel: day.clouds,
+			imagePreview: preview,
+			humidity: day.humidity,
+			temperature: day.feels_like.day,
+			low: day.temp.min,
+			decription: day.weather[0].description,
+		}
+
+	})
+	console.log(structuredData)
+	weatherData.value = structuredData
+}
+
+async function requestHandler(url){
+	const response = await fetch(url)
+	if(!response.ok){
+		throw new Error(`HTTP error! status: ${response.status}`);
 	}
+
+	const myBlob = await response.blob()
+	const strJson = await new Response(myBlob).text()
+	let object = JSON.parse(strJson)
+	return object
 }
 
 getWeatherData('Lisbon,pt')
