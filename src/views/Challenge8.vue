@@ -4205,9 +4205,9 @@ const dayWeatherTypes = {
 	'Snow':'snowy'              // 5 - 600 group (Snow)
 }
 async function getWeatherData(cityName){
-	const geoPositionResponse = await requestHandler(`http://api.openweathermap.org/geo/1.0/direct?appid=${APIKey}${cityName?`&q=${cityName}`:''}`)
+	const geoPositionResponse = await requestHandler(`https://api.openweathermap.org/geo/1.0/direct?appid=${APIKey}${cityName?`&q=${cityName}`:''}`)
 	const lat = geoPositionResponse[0].lat,long = geoPositionResponse[0].lon
-	const weatherResponse = await requestHandler(`http://api.openweathermap.org/data/2.5/onecall?appid=${APIKey}&lat=${lat}&lon=${long}&units=metric&exclude=current,hourly,minutely`)
+	const weatherResponse = await requestHandler(`https://api.openweathermap.org/data/2.5/onecall?appid=${APIKey}&lat=${lat}&lon=${long}&units=metric&exclude=current,hourly,minutely`)
   
 	const structuredData = weatherResponse.daily.slice(0,7).map(day => {
 		//logic to find image for weather type from openweather
