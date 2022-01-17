@@ -1,27 +1,27 @@
 <template>
 	<div class="wrapper">
 		<div class="feature">
-    <img src="challenge9/dave-hoefler-okUIdo6NxGo-unsplash.jpg" alt="Featured" />
-    <div class="caption">Photo by Dave Hoefler Unsplash</div>
-  </div>
+			<img :src="'./challenge9/'+selectedImage.image" alt="Featured" />
+		<div class="caption">{{selectedImage.caption}}</div>
+	</div>
 
-  <div class="thumbnails">
+	<div class="thumbnails">
     <ul>
       <li :class="{selected:image.selected}" v-for="(image, index) in imagesContent" :key="index">
-        <a href="#" @click="selectImageHandler(image)">
+        <a @click="selectImageHandler(image)">
           <img :src="'./challenge9/'+image.image" :alt="image.caption">
         </a>
       </li>
     </ul>
   </div>
 
-  <a href="#" class="left"><img src="./challenge9/chevron.svg" alt=""></a>
-  <a href="#" class="right"><img src="./challenge9/chevron.svg" alt=""></a>
+  <a @click="selectPreviousImageHandler" class="left"><img :src="'./challenge9/chevron.svg'" alt=""></a>
+  <a @click="selectNextImageHandler" class="right"><img :src="'./challenge9/chevron.svg'" alt=""></a>
 	</div>
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {ref, computed} from 'vue'
 const imagesContent = ref([
 	{
 		'image': 'dave-hoefler-okUIdo6NxGo-unsplash.jpg',
@@ -81,10 +81,27 @@ const imagesContent = ref([
 ])
 
 const selectImageHandler = (image) => {
-	imagesContent.value.find(storeImage => storeImage.selected).selected =
+	imagesContent.value.find(storeImage => storeImage.selected).selected = false
 	image.selected = true
 }
+const selectNextImageHandler = () => {
+	const currentSelectedIndex = imagesContent.value.findIndex(storeImage => storeImage.selected)
+	if((currentSelectedIndex + 1) === imagesContent.value.length){
+		return
+	}
+	imagesContent.value[currentSelectedIndex].selected = false
+	imagesContent.value[currentSelectedIndex + 1].selected = true
+}
+const selectPreviousImageHandler = () => {
+	const currentSelectedIndex = imagesContent.value.findIndex(storeImage => storeImage.selected)
+	if(currentSelectedIndex === 0){
+		return
+	}
+	imagesContent.value[currentSelectedIndex].selected = false
+	imagesContent.value[currentSelectedIndex - 1].selected = true
+}
 
+const selectedImage = computed(() => imagesContent.value.find(image => image.selected))
 </script>
 
 <style scoped>
@@ -186,5 +203,8 @@ body {
 .right img {
   transform: rotate(180deg);
   margin: auto;
+}
+a{
+	cursor:pointer;
 }
 </style>
