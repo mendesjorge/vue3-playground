@@ -2,26 +2,29 @@
 	<div class="wrapper">
 		<div class="feature">
 			<img :src="'./challenge9/'+selectedImage.image" alt="Featured" />
-		<div class="caption">{{selectedImage.caption}}</div>
-	</div>
+			<div class="caption">{{selectedImage.caption}}</div>
+		</div>
 
-	<div class="thumbnails">
-    <ul>
-      <li :class="{selected:image.selected}" v-for="(image, index) in imagesContent" :key="index">
-        <a @click="selectImageHandler(image)">
-          <img :src="'./challenge9/'+image.image" :alt="image.caption">
-        </a>
-      </li>
-    </ul>
-  </div>
+		<div class="thumbnails" ref='thumbnails'>
+			<ul>
+			<li :class="{selected:image.selected}" v-for="(image, index) in imagesContent" :key="index">
+				<a @click="selectImageHandler(image)">
+					<img :src="'./challenge9/'+image.image" :alt="image.caption">
+				</a>
+			</li>
+			</ul>
+		</div>
 
-  <a @click="selectPreviousImageHandler" class="left"><img :src="'./challenge9/chevron.svg'" alt=""></a>
-  <a @click="selectNextImageHandler" class="right"><img :src="'./challenge9/chevron.svg'" alt=""></a>
+		<a @click="selectPreviousImageHandler" class="left"><img :src="'./challenge9/chevron.svg'" alt=""></a>
+		<a @click="selectNextImageHandler" class="right"><img :src="'./challenge9/chevron.svg'" alt=""></a>
 	</div>
 </template>
 
 <script setup>
 import {ref, computed} from 'vue'
+
+const thumbnails = ref(null)
+
 const imagesContent = ref([
 	{
 		'image': 'dave-hoefler-okUIdo6NxGo-unsplash.jpg',
@@ -82,7 +85,7 @@ const imagesContent = ref([
 
 const selectImageHandler = (image) => {
 	imagesContent.value.find(storeImage => storeImage.selected).selected = false
-	image.selected = true
+	selectImage(image)
 }
 const selectNextImageHandler = () => {
 	const currentSelectedIndex = imagesContent.value.findIndex(storeImage => storeImage.selected)
@@ -90,7 +93,7 @@ const selectNextImageHandler = () => {
 		return
 	}
 	imagesContent.value[currentSelectedIndex].selected = false
-	imagesContent.value[currentSelectedIndex + 1].selected = true
+	selectImage(imagesContent.value[currentSelectedIndex + 1])
 }
 const selectPreviousImageHandler = () => {
 	const currentSelectedIndex = imagesContent.value.findIndex(storeImage => storeImage.selected)
@@ -98,7 +101,16 @@ const selectPreviousImageHandler = () => {
 		return
 	}
 	imagesContent.value[currentSelectedIndex].selected = false
-	imagesContent.value[currentSelectedIndex - 1].selected = true
+	selectImage(imagesContent.value[currentSelectedIndex - 1])
+}
+
+const selectImage = (image) => {
+	image.selected = true
+	setTimeout(() => {
+		const selectedElem = document.querySelector('li.selected')
+		thumbnails.value.scrollLeft = selectedElem.offsetLeft + (thumbnails.value.clientWidth / 2 - selectedElem.clientWidth)
+		console.log(thumbnails.value.clientWidth)
+	}, 200)
 }
 
 const selectedImage = computed(() => imagesContent.value.find(image => image.selected))
@@ -107,15 +119,16 @@ const selectedImage = computed(() => imagesContent.value.find(image => image.sel
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
-body {
+.wrapper {
   font-family: 'Roboto Mono', monospace;
   padding: 0;
   margin: 0;
-  min-width: 100vw;
-  min-height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color:white;
 }
 
 .feature {
