@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<div class="feature">
-			<img :src="'./challenge9/'+selectedImage.image" alt="Featured" />
+			<img :src="'./challenge9/'+selectedImage.image" alt="Featured" decoding="async" loading="lazy"/>
 			<div class="caption">{{selectedImage.caption}}</div>
 		</div>
 
@@ -9,14 +9,14 @@
 			<ul>
 			<li :class="{selected:image.selected}" v-for="(image, index) in imagesContent" :key="index">
 				<a @click="selectImageHandler(image)">
-					<img :src="'./challenge9/'+image.image" :alt="image.caption">
+					<img :src="'./challenge9/'+image.image" :alt="image.caption" decoding="async" width="175px" height="175px" loading="lazy">
 				</a>
 			</li>
 			</ul>
 		</div>
 
-		<a @click="selectPreviousImageHandler" class="left"><img :src="'./challenge9/chevron.svg'" alt=""></a>
-		<a @click="selectNextImageHandler" class="right"><img :src="'./challenge9/chevron.svg'" alt=""></a>
+		<a @click="selectPreviousImageHandler" class="left"><img :src="'./challenge9/chevron.svg'" alt="" decoding="async" loading="lazy"></a>
+		<a @click="selectNextImageHandler" class="right"><img :src="'./challenge9/chevron.svg'" alt="" decoding="async" loading="lazy"></a>
 	</div>
 </template>
 
@@ -108,7 +108,8 @@ const selectImage = (image) => {
 	image.selected = true
 	setTimeout(() => {
 		const selectedElem = document.querySelector('li.selected')
-		thumbnails.value.scrollLeft = selectedElem.offsetLeft + (thumbnails.value.clientWidth / 2 - selectedElem.clientWidth)
+		const parent = thumbnails.value.parentElement
+		thumbnails.value.scrollLeft = selectedElem.offsetLeft - parent.clientWidth/2 + (selectedElem.clientWidth / 2)
 		console.log(thumbnails.value.clientWidth)
 	}, 200)
 }
