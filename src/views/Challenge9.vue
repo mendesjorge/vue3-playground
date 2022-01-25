@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<div class="feature">
-			<img :src="'./challenge9/'+selectedImage.image" alt="Featured" decoding="async" loading="lazy"/>
+			<img class="main-image" :src="'./challenge9/'+selectedImage.image" alt="Featured" decoding="async" loading="lazy"/>
 			<div class="caption">{{selectedImage.caption}}</div>
 		</div>
 
@@ -127,27 +127,30 @@ const selectedImage = computed(() => imagesContent.value.find(image => image.sel
   min-width: 100%;
   min-height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  /* justify-content: center; */
   align-items: center;
   background-color:white;
 }
 
 .feature {
-  padding-bottom: 200px; /* offset thumbnail strip at the bottom */
+	position: relative;
+	height: calc(100% - 250px);
+	margin-bottom:400px;
 }
 
 .feature img {
-  max-height: 615px;
-  max-width: 800px;
+  max-width: 100%;
+  height: 100%;
 }
 
 .caption {
   text-align: center;
   font-size: 14px;
 }
-
 .thumbnails {
   position: fixed;
+  /* align-self: end; */
   bottom: 0;
   left: 0;
   width: 100vw;
