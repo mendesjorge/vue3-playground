@@ -4,6 +4,7 @@
 		<router-link class='route-link' to="/challenge-7">Challenge 7</router-link>
 		<router-link class='route-link' to="/challenge-8">Challenge 8</router-link>
 		<router-link class='route-link' to="/challenge-9">Challenge 9</router-link>
+		<router-link class='route-link' to="/challenge-10">Challenge 10</router-link>
 	</div>
 </template>
 
