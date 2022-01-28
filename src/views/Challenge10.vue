@@ -1,21 +1,22 @@
 <template>
 	<div class="challenge-10-wrapper">
-		<div class="container" :class="{'rotate': rotateCard}">
+		<div class="container" :class="{'rotate': startRotateCard}">
 			<h1>Authorization Code</h1>
 			<p>Please enter the code that we sent to (***) *** - 2819.</p>
 			<form>
 				<div class="fields">
-				<input type="text" maxlength="1" v-model="numbers[0]" />
-				<input type="text" maxlength="1" v-model="numbers[1]" />
-				<input type="text" maxlength="1" v-model="numbers[2]" />
-				<input type="text" maxlength="1" v-model="numbers[3]" />
+				<input type="text" maxlength="1" v-numbersOnly v-model="numbers[0]" @input="$event.target.value.length && $refs['input-1'].focus()"/>
+				<input ref="input-1" type="text" maxlength="1" v-model="numbers[1]" @input="$event.target.value.length && $refs['input-2'].focus()"/>
+				<input ref="input-2" type="text" maxlength="1" v-model="numbers[2]" @input="$event.target.value.length && $refs['input-3'].focus()"/>
+				<input ref="input-3" type="text" maxlength="1" v-model="numbers[3]" />
 				</div>
 				<button @click="verifyButtonHandler">Verify</button>
 			</form>
 		</div>
-		<div class="container-back-card" :class="{'success':hasSucceed, 'fail': hasFailed}">
-			{{hasSucceed? 'success':'fail'}}
-			<button @click="rotateCard = false">Try Again</button>
+		<div class="container-back-card" :class="{'rotate-back':rotateCard,'success':success, 'fail': !success}">
+			<h1>{{success? 'success':'fail'}}</h1>
+			<p v-if="!success">right code is "1234"</p>
+			<button @click="tryAgainHandler">Try Again</button>
 		</div>
 	</div>
 </template>
@@ -29,14 +30,22 @@ const code = computed(() =>
 )
 
 let success = ref(false)
+const startRotateCard = ref(false)
 const rotateCard = ref(false)
 
-const hasSucceed = computed(()=> success.value && rotateCard.value)
-const hasFailed = computed(()=> !success.value && rotateCard.value)
-
 const verifyButtonHandler = () => {
-	success.value = code === '1234'
-	rotateCard.value = true
+	console.log(code, code === '1234')
+	success.value = code.value === '1234'
+	startRotateCard.value = true
+	setTimeout(()=>{
+		rotateCard.value = true
+	}, 1000)
+}
+const tryAgainHandler = () => {
+	rotateCard.value = false
+	setTimeout(()=>{
+		startRotateCard.value = false
+	}, 1000)
 }
 
 </script>
@@ -51,17 +60,18 @@ const verifyButtonHandler = () => {
   flex-direction: column;
   width: 100%;
   height: 100%;
+  position: relative;
 }
 .container, .container-back-card{
 	background: white;
 	box-shadow: 0px 23px 44px #CAD0E0;
 	border-radius: 10px;
 	min-width: 575px;
-	height: 300px;
 	padding: 70px 35px 30px;
+	position: absolute;
 }
 .container{
-	transition: transform 1s ease-in-out, visibility 0s 1s ease-in-out;
+	transition: transform 1s ease-in, visibility 1s ease-in;
 }
 .rotate{
 	transform: rotateY(90deg);
@@ -70,25 +80,25 @@ const verifyButtonHandler = () => {
 .container-back-card{
 	display:flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	transform: rotateY(-90deg);
 	visibility: hidden;
-	transition: visibility 1s 1s ease-in-out, transform 1s 1s ease-in-out;
-	transition-delay: 1s;
+	height: 300px;
+	transition: visibility 1s ease-in, transform 1s ease-in;
 }
-
+.container-back-card.rotate-back{
+	transform: rotateY(0deg);
+	visibility: visible;
+}
 .container-back-card.success{
 	background-color: lightgreen;
-	transform: rotateY(0deg);
-	visibility: visible;
+	
 }
 .container-back-card.fail{
-	background-color: lightgreen;
-	transition-delay: 1s;
-	transform: rotateY(0deg);
-	visibility: visible;
+	background-color: pink;
 }
+
 h1 {
   text-align: center;
   letter-spacing: 0.11em;
