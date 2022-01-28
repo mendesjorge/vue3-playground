@@ -110,7 +110,7 @@ const selectImage = (image) => {
 		const selectedElem = document.querySelector('li.selected')
 		const parent = thumbnails.value.parentElement
 		thumbnails.value.scrollLeft = selectedElem.offsetLeft - parent.clientWidth/2 + (selectedElem.clientWidth / 2)
-		console.log(thumbnails.value.clientWidth)
+		// console.log(thumbnails.value.clientWidth)
 	}, 200)
 }
 

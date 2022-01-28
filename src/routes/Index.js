@@ -7,6 +7,7 @@ import Challenge7 from '../views/Challenge7.vue'
 import Challenge8 from '../views/Challenge8.vue'
 import Challenge9 from '../views/Challenge9.vue'
 import Challenge10 from '../views/Challenge10.vue'
+import Challenge11 from '../views/Challenge11.vue'
 // 2. Define some routes
 // Each route should map to a component.
 // We'll talk about nested routes later.
@@ -16,7 +17,8 @@ const routes = [
 	{ path: '/challenge-7', component: Challenge7 },
 	{ path: '/challenge-8', component: Challenge8 },
 	{ path: '/challenge-9', component: Challenge9 },
-	{ path: '/challenge-10', component: Challenge10 }
+	{ path: '/challenge-10', component: Challenge10 },
+	{ path: '/challenge-11', component: Challenge11 }
 ]
 
 // 3. Create the router instance and pass the `routes` option

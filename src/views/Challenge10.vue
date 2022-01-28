@@ -34,7 +34,6 @@ const startRotateCard = ref(false)
 const rotateCard = ref(false)
 
 const verifyButtonHandler = () => {
-	console.log(code, code === '1234')
 	success.value = code.value === '1234'
 	startRotateCard.value = true
 	setTimeout(()=>{

@@ -32,7 +32,7 @@ export default {
 	},
 	methods:{
 		handleSlideInput(ev){
-			console.log(ev.target.value)
+			// console.log(ev.target.value)
 			this.$emit('update:modelValue', ev.target.value)
 		}
 	}

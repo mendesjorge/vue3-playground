@@ -4219,7 +4219,7 @@ async function getWeatherData(cityName){
 
 		const weekNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
 		const date = new Date(day.dt*1000)
-		console.log(day.dt)
+		// console.log(day.dt)
 		return {
 			datetime: date,
 			week: weekNames[date.getDay()],
@@ -4232,7 +4232,7 @@ async function getWeatherData(cityName){
 		}
 
 	})
-	console.log(structuredData)
+	// console.log(structuredData)
 	weatherData.value = structuredData
 }
 

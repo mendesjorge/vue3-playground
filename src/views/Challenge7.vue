@@ -53,9 +53,9 @@ export default {
 		}
 		
 		const updateNOfPeopleValue = (ev) => {
-			console.log(ref, ev)
+			// console.log(ref, ev)
 			if(!/\d/.test(ev.data)) {
-				console.log('bad')
+				// console.log('bad')
 				nOfPeople.value = ev.target.value.slice(0,ev.target.value.length - 1)
 				ev.target.value = nOfPeople.value
 			}
@@ -63,9 +63,9 @@ export default {
 		}
     
 		const updateBillAmountValue = (ev) => {
-			console.log(ref, ev)
+			// console.log(ref, ev)
 			if(!/\d/.test(ev.data) && ![','].includes(ev.data)) {
-				console.log('bad')
+				// console.log('bad')
 				billAmount.value = ev.target.value.slice(0,ev.target.value.length - 1)
 				ev.target.value = billAmount.value
 			}
